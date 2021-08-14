@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VRPLancher.Properties;
 
 namespace VRPLancher
 {
@@ -15,11 +18,12 @@ namespace VRPLancher
         public Legal()
         {
             InitializeComponent();
+            licenseText.Rtf = Resources.license;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            RegistryConfig.setLastLaunchedVersion();
+            RegistryConfig.lastVersion = Central.version;
             this.Close();
             Central.openForm1();
         }

@@ -22,7 +22,7 @@ namespace VRPLancher
         }
         public static readonly string pathToMCFolder = Environment.CurrentDirectory + @"\minecraft";
         public static readonly string pathToJava = Environment.CurrentDirectory + @"\bin\jre1.8.0_301\bin";
-        public static readonly string profileName = "1.16.4";
+        public static readonly string profileName = "fabric-loader-0.11.6-1.16.4";
         public static readonly MinecraftPath minecraftPath = new MinecraftPath(pathToMCFolder);
 
         /// <summary>
@@ -120,7 +120,18 @@ namespace VRPLancher
                 //ServerIp = "mc.vanillarp.fun",
             };
             setStatus("Запуск Майнкрафта...");
-            var process = launcher.CreateProcess("fabric-loader-0.11.6-1.16.4", launchOption);
+            System.Diagnostics.Process process;
+            try
+            {
+                process = launcher.CreateProcess("fabric-loader-0.11.6-1.16.4", launchOption);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Файлы с необходимой версией отсутствуют или повреждены.\nУстановите версию fabric-loader-0.11.6-1.16.4 чтобы все заработало.");
+                setStatus("Отсутствуют необходимые файлы");
+                return;
+            }
+            process = launcher.CreateProcess("fabric-loader-0.11.6-1.16.4", launchOption);
 
             setLauncher(true);
             process.Start();

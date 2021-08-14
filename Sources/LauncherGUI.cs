@@ -10,7 +10,7 @@ namespace VRPLancher.Sources
         public LauncherGUI()
         {
             InitializeComponent();
-            nickInput.Text = RegistryConfig.getNickName();
+            nickInput.Text = RegistryConfig.nickname;
             mojangEmail.Text = RegistryConfig.mojangEmail;
             //global::VRPLancher.Properties.Resources.uac
             //this.helpButton.BackgroundImage = SystemIcons.Question.ToBitmap();
@@ -23,6 +23,19 @@ namespace VRPLancher.Sources
             ramInput.Maximum = Central.maxram;
             ramInput.Value   = Central.maxram / 2;
             valueChanged += new System.EventHandler(onValueChanged);
+            updateShield();
+        }
+        public void updateShield()
+        {
+            if (!(Central.filesValid))
+            {
+                setGrayShield(true);
+                this.versionLabel.Text = Central.version + "_UNTRUST";
+            } else
+            {
+                setGrayShield(false);
+                this.versionLabel.Text = Central.version;
+            }
         }
 
         public event System.EventHandler valueChanged;
@@ -46,12 +59,12 @@ namespace VRPLancher.Sources
 
         private void nickInput_TextChanged(object sender, EventArgs e)
         {
-            RegistryConfig.setNickName(nickInput.Text);
+            RegistryConfig.nickname = nickInput.Text;
         }
 
         private void label5_Click(object sender, EventArgs e)
         {
-            Central.verifyFileIntegrity();
+            Central.reCheckFiles();
         }
         public void setGrayShield(bool value)
         {
@@ -61,20 +74,7 @@ namespace VRPLancher.Sources
             }
             if (value)
             {
-                Bitmap img = (Bitmap)shield.Image;
-                int x, y;
-                for (x = 0; x < img.Width; x++)
-                {
-                    for (y = 0; y < img.Height; y++)
-                    {
-                        Color pixelColor = img.GetPixel(x, y);
-                        Color newColor = Color.FromArgb(pixelColor.A, pixelColor.R, pixelColor.R, pixelColor.R);
-                        img.SetPixel(x, y, newColor);
-                        shield.Image = img;
-
-                        System.GC.Collect();
-                    }
-                }
+                shield.Image = global::VRPLancher.Properties.Resources.uacGRAY;
             }
             isShieldGray = value;
             System.GC.Collect();
@@ -83,7 +83,7 @@ namespace VRPLancher.Sources
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            setGrayShield(true);
+            //setGrayShield(true);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -165,6 +165,17 @@ namespace VRPLancher.Sources
                 }
                 mojangPassword.PasswordChar = char.MinValue;
             }
+        }
+
+        private void mojangPassword_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (!userTypedPassword)
+            {
+                mojangPassword.Text = "";
+                userTypedPassword = true;
+            }
+            if (checkBox1.Checked == false) return;
+            RegistryConfig.mojangPassword = mojangPassword.Text;
         }
     }
 }

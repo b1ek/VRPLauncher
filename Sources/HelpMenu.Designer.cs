@@ -32,8 +32,8 @@ namespace VRPLancher
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HelpMenu));
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.github = new System.Windows.Forms.Button();
+            this.discord = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -54,35 +54,38 @@ namespace VRPLancher
             this.button1.TabIndex = 3;
             this.button1.Text = "Лицензионное соглашение";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // github
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.Location = new System.Drawing.Point(12, 162);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(143, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "GitHub";
-            this.button2.UseVisualStyleBackColor = false;
+            this.github.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.github.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.github.Location = new System.Drawing.Point(12, 162);
+            this.github.Name = "github";
+            this.github.Size = new System.Drawing.Size(143, 23);
+            this.github.TabIndex = 4;
+            this.github.Text = "GitHub";
+            this.github.UseVisualStyleBackColor = false;
+            this.github.Click += new System.EventHandler(this.github_Click);
             // 
-            // button3
+            // discord
             // 
-            this.button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button3.Location = new System.Drawing.Point(169, 162);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(143, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Discord";
-            this.button3.UseVisualStyleBackColor = true;
+            this.discord.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.discord.Location = new System.Drawing.Point(169, 162);
+            this.discord.Name = "discord";
+            this.discord.Size = new System.Drawing.Size(143, 23);
+            this.discord.TabIndex = 5;
+            this.discord.Text = "Discord";
+            this.discord.UseVisualStyleBackColor = true;
+            this.discord.Click += new System.EventHandler(this.discord_Click);
             // 
             // HelpMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(324, 196);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.discord);
+            this.Controls.Add(this.github);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -97,7 +100,7 @@ namespace VRPLancher
         #endregion
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button github;
+        private System.Windows.Forms.Button discord;
     }
 }

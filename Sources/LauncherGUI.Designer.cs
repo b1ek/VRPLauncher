@@ -54,6 +54,7 @@ namespace VRPLancher.Sources
             this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.statusLabel = new System.Windows.Forms.Label();
+            this.versionLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.shield)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -70,6 +71,7 @@ namespace VRPLancher.Sources
             this.shield.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.shield.TabIndex = 0;
             this.shield.TabStop = false;
+            this.shield.Tag = "Все файлы лаунчера не менялись! Администрация доверяет вам =)";
             this.shield.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label1
@@ -131,6 +133,7 @@ namespace VRPLancher.Sources
             this.mojangPassword.Size = new System.Drawing.Size(139, 23);
             this.mojangPassword.TabIndex = 1;
             this.mojangPassword.TextChanged += new System.EventHandler(this.mojangPassword_TextChanged);
+            this.mojangPassword.MouseDown += new System.Windows.Forms.MouseEventHandler(this.mojangPassword_MouseDown);
             // 
             // label3
             // 
@@ -199,7 +202,7 @@ namespace VRPLancher.Sources
             this.closeLauncher.BackColor = System.Drawing.Color.Transparent;
             this.closeLauncher.Location = new System.Drawing.Point(204, 131);
             this.closeLauncher.Name = "closeLauncher";
-            this.closeLauncher.Size = new System.Drawing.Size(133, 19);
+            this.closeLauncher.Size = new System.Drawing.Size(121, 19);
             this.closeLauncher.TabIndex = 5;
             this.closeLauncher.Text = "Закрыть лаунчер";
             this.closeLauncher.UseVisualStyleBackColor = false;
@@ -212,7 +215,7 @@ namespace VRPLancher.Sources
             this.autoJoinServer.Name = "autoJoinServer";
             this.autoJoinServer.Size = new System.Drawing.Size(144, 34);
             this.autoJoinServer.TabIndex = 6;
-            this.autoJoinServer.Text = "Автоматически зайти на сервер";
+            this.autoJoinServer.Text = "Автоматически зайти\nна сервер";
             this.autoJoinServer.UseVisualStyleBackColor = false;
             // 
             // launcherProgress
@@ -227,12 +230,13 @@ namespace VRPLancher.Sources
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.label5.Location = new System.Drawing.Point(26, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(184, 15);
+            this.label5.Size = new System.Drawing.Size(210, 15);
             this.label5.TabIndex = 9;
-            this.label5.Text = "Проверить целостность файлов";
+            this.label5.Text = "Перепроверить целостность файлов";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // launch
@@ -253,11 +257,11 @@ namespace VRPLancher.Sources
             this.useMojangAuth.AutoSize = true;
             this.useMojangAuth.BackColor = System.Drawing.Color.Transparent;
             this.useMojangAuth.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.useMojangAuth.Location = new System.Drawing.Point(204, 194);
+            this.useMojangAuth.Location = new System.Drawing.Point(203, 193);
             this.useMojangAuth.Name = "useMojangAuth";
-            this.useMojangAuth.Size = new System.Drawing.Size(137, 34);
+            this.useMojangAuth.Size = new System.Drawing.Size(143, 34);
             this.useMojangAuth.TabIndex = 11;
-            this.useMojangAuth.Text = "Использовать авторизацию Mojang\r\n";
+            this.useMojangAuth.Text = "Использовать\nавторизацию Mojang";
             this.useMojangAuth.UseVisualStyleBackColor = false;
             // 
             // percentProgress
@@ -321,11 +325,23 @@ namespace VRPLancher.Sources
             // 
             this.statusLabel.AutoSize = true;
             this.statusLabel.BackColor = System.Drawing.Color.Transparent;
-            this.statusLabel.Location = new System.Drawing.Point(13, 304);
+            this.statusLabel.Location = new System.Drawing.Point(12, 304);
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(204, 15);
+            this.statusLabel.Size = new System.Drawing.Size(219, 15);
             this.statusLabel.TabIndex = 17;
-            this.statusLabel.Text = "Ожидание команды пользователя...";
+            this.statusLabel.Text = "Ожидание команды от пользователя...";
+            // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.versionLabel.Font = new System.Drawing.Font("Segoe UI Emoji", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.versionLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.versionLabel.Location = new System.Drawing.Point(484, 58);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(31, 15);
+            this.versionLabel.TabIndex = 18;
+            this.versionLabel.Text = "1.0.1";
             // 
             // LauncherGUI
             // 
@@ -333,6 +349,7 @@ namespace VRPLancher.Sources
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(560, 351);
+            this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label7);
@@ -391,5 +408,6 @@ namespace VRPLancher.Sources
         private System.Windows.Forms.Button button1;
         public System.Windows.Forms.Button launch;
         public System.Windows.Forms.Label statusLabel;
+        private System.Windows.Forms.Label versionLabel;
     }
 }

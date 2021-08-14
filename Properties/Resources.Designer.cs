@@ -22,7 +22,7 @@ namespace VRPLancher.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace VRPLancher.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VRPLancher.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace VRPLancher.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,11 +61,35 @@ namespace VRPLancher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset204 Calibri;}{\f1\fnil\fcharset0 Calibri;}}
+        ///{\colortbl ;\red0\green0\blue255;}
+        ///{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+        ///\pard\sa200\sl276\slmult1\qc\b\f0\fs28\lang1049\&apos;cb\&apos;c8\&apos;d6\&apos;c5\&apos;cd\&apos;c7\&apos;c8\&apos;ce\&apos;cd\&apos;cd\&apos;ce\&apos;c5 \&apos;d1\&apos;ce\&apos;c3\&apos;cb\&apos;c0\&apos;d8\&apos;c5\&apos;cd\&apos;c8\&apos;c5\b0\fs22\par
+        ///
+        ///\pard\sa200\sl276\slmult1\&apos;c8\&apos;f1\&apos;ef\&apos;ee\&apos;eb\&apos;fc\&apos;e7\&apos;f3\&apos;ff \&apos;fd\&apos;f2\&apos;ee \&apos;cf\&apos;ce, \&apos;e2\&apos;fb \&apos;e0\&apos;e2\&apos;f2\&apos;ee\&apos;ec\&apos;e0\&apos;f2\&apos;e8\&apos;f7\&apos;e5\&apos;f1\&apos;ea\&apos;e8 \&apos; [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string license {
+            get {
+                return ResourceManager.GetString("license", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap uac {
+        public static System.Drawing.Bitmap uac {
             get {
                 object obj = ResourceManager.GetObject("uac", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap uacGRAY {
+            get {
+                object obj = ResourceManager.GetObject("uacGRAY", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
