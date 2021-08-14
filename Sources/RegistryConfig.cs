@@ -9,69 +9,111 @@ namespace VRPLancher
 {
     static class RegistryConfig
     {
-        #region NickName
-        public static void setNickName(string nickName)
+        #region vrpkey
+        public static RegistryKey vrpKey
         {
-            Registry.SetValue(Central.vrpRegKey.Name, Central.vrpNickValue, nickName, RegistryValueKind.String);
-        }
-        public static string getNickName()
-        {
-            var a = Registry.GetValue(Central.vrpRegKey.Name, Central.vrpNickValue, "84a3572b-60fa-4fbc-8251-8f6fe412d01b");
-            if (a == null || a.Equals("84a3572b-60fa-4fbc-8251-8f6fe412d01b"))
+            get
             {
-                setNickName("BlackLightHack");
+                RegistryKey a = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\blek\VRP");
+                if (a == null)
+                {
+                    Registry.CurrentUser.CreateSubKey(@"SOFTWARE\blek\VRP");
+                }
+                return Registry.CurrentUser.OpenSubKey(@"SOFTWARE\blek\VRP");
             }
-            return Registry.GetValue(Central.vrpRegKey.Name, Central.vrpNickValue, "BlackLightHack").ToString();
+            set
+            {
+                return;
+            }
+        }
+        #endregion
+        #region NickName
+        public const string vrpNickValue = "NickName";
+        public static string nickname
+        {
+            get
+            {
+                var a = Registry.GetValue(Central.vrpRegKey.Name, RegistryConfig.vrpNickValue, "84a3572b-60fa-4fbc-8251-8f6fe412d01b");
+                if (a == null || a.Equals("84a3572b-60fa-4fbc-8251-8f6fe412d01b"))
+                {
+                    nickname = "BlackLightHack";
+                }
+                return Registry.GetValue(Central.vrpRegKey.Name, RegistryConfig.vrpNickValue, "BlackLightHack").ToString();
+            }
+            set
+            {
+                Registry.SetValue(Central.vrpRegKey.Name, RegistryConfig.vrpNickValue, value, RegistryValueKind.String);
+            }
         }
         #endregion
         #region lastLaunchedVersion
         public static readonly string lastLaunchedVersionKey = "lastLaunchedVersion";
-        public static void setLastLaunchedVersion()
+
+        public static string lastVersion
         {
-            Registry.SetValue(Central.vrpRegKey.Name, lastLaunchedVersionKey, Central.version, RegistryValueKind.DWord);
-        }
-        public static int lastLaunchedVersion()
-        {
-            var a = Registry.GetValue(Central.vrpRegKey.Name, lastLaunchedVersionKey, "-1");
-            if (a == null || a.Equals("-1"))
+            get
             {
-                return -1;
+                var a = Registry.GetValue(Central.vrpRegKey.Name, lastLaunchedVersionKey, "-1");
+                if (a == null || a.Equals("-1"))
+                {
+                    return "-1";
+                }
+                return Registry.GetValue(Central.vrpRegKey.Name, lastLaunchedVersionKey, "-1").ToString();
             }
-            return (int)Registry.GetValue(Central.vrpRegKey.Name, lastLaunchedVersionKey, "-1");
+            set
+            {
+                Registry.SetValue(Central.vrpRegKey.Name, lastLaunchedVersionKey, Central.version, RegistryValueKind.String);
+            }
         }
         #endregion
-        #region Mojang auth data
-        public static string mojangEmailKey     = "mojangEmail";
-        public static string mojangPasswordKey  = "mojangPassword";
+        #region Mojang auth
+
+        #region email
+        public static string mojangEmailKey = "mojangEmail"; // key in registry
         public static string mojangEmail
         {
             get {
+                // get as object
                 object email = Registry.GetValue(Central.vrpRegKey.Name, mojangEmailKey, "84a3572b-60fa-4fbc-8251-8f6fe412d01b");
+
+                // if not exists, return empty string.
                 if (email == null || email.Equals("84a3572b-60fa-4fbc-8251-8f6fe412d01b"))
                     return "";
+
+                // if exists, return its value.
                 return Registry.GetValue(Central.vrpRegKey.Name, mojangEmailKey, "84a3572b-60fa-4fbc-8251-8f6fe412d01b").ToString();
             }
             set {
                 Registry.SetValue(Central.vrpRegKey.Name, mojangEmailKey, value, RegistryValueKind.String);
             }
         }
+        #endregion
+        #region password
+
+        public static string mojangPasswordKey = "mojangPassword"; // key in registry
         public static string mojangPassword
         {
             get
             {
+                //get as object
                 object password = Registry.GetValue(Central.vrpRegKey.Name, mojangPasswordKey, "84a3572b-60fa-4fbc-8251-8f6fe412d01b");
+                // if not exists, return "not set"
                 if (password == null || password.Equals("84a3572b-60fa-4fbc-8251-8f6fe412d01b") || password.Equals("not set"))
                     mojangPassword = "not set";
+                // return the value
                 return Registry.GetValue(Central.vrpRegKey.Name, mojangPasswordKey, "84a3572b-60fa-4fbc-8251-8f6fe412d01b").ToString();
             }
             set
             {
+                // if you are trying to set an empty password
                 if (value == "")
                     Registry.SetValue(Central.vrpRegKey.Name, mojangPasswordKey, "not set", RegistryValueKind.String);
-
+                // if ur not
                 Registry.SetValue(Central.vrpRegKey.Name, mojangPasswordKey, value, RegistryValueKind.String);
             }
         }
+        #endregion
+
         #endregion
     }
 }

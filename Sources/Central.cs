@@ -38,10 +38,9 @@ namespace VRPLancher
         //public const string README = "";
         public static LauncherGUI launcherGUI;
         public static readonly RegistryKey vrpRegKey = getVrpRegKey();
-        public const string vrpNickValue = "NickName";
-        public const int version = 1;
+        public const string version = "1.0.1";
         public static readonly int maxram = Convert.ToInt32(new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory / (1024 * 1024));
-        private static bool filesValid;
+        public static bool filesValid;
         public static MCLauncher launcher = new MCLauncher();
 
         public static RegistryKey getVrpRegKey() {
@@ -67,56 +66,86 @@ namespace VRPLancher
         static void Main()
         {
             //Clipboard.SetText(Cryptography.getPasswordHash("пароль)"));
+            try
+            {
+                Directory.GetFiles(MCLauncher.pathToMCFolder, "*.*", SearchOption.AllDirectories).OrderBy(p => p).ToList();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Вы удалили папку с игрой. Верните.\nЛаунчер без неё работать не будет.");
+            }
+            if (Directory.Exists(MCLauncher.pathToMCFolder + @"\versions\1.16.4")) {
+                try
+                {
+                    Directory.Delete(MCLauncher.pathToMCFolder + @"\versions\1.16.4");
+                }
+                catch (Exception) { /*ignored*/ }
+            }
             WriteReadme();
             AppDomain currentDomain = AppDomain.CurrentDomain;
             currentDomain.UnhandledException += new UnhandledExceptionEventHandler(ExceptionHandler);
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            if (RegistryConfig.lastLaunchedVersion() == -1)
+            if (RegistryConfig.lastVersion == "-1")
             {
                 Legal legal_agreement = new Legal();
                 Application.Run(legal_agreement);
             }
-            if (RegistryConfig.lastLaunchedVersion() != -1)
+            if (RegistryConfig.lastVersion != "-1")
             {
                 openForm11();
             }
             
         }
+        public static void checkFiles()
+        {
+            bool trusted = FileChecker.checkByDefault();
+            if (!trusted)
+            {
+                MessageBox.Show(
+                "Файлы вашего лаунчера были изменены вручную или какой-то программой\n" +
+                "поэтому если вас будут подозревать в читерстве и попросят показать лаунчер\n" +
+                "вас скорее всего накажут.\n" +
+                "\n" +
+                "Чтобы восстановить свой статус доверенности, поставьте оригинальные моды и версию игры.");
+            }
+            filesValid = trusted;
+        }
+        public static void reCheckFiles()
+        {
+            bool trusted = FileChecker.checkByDefault();
+            filesValid = trusted;
+            if (filesValid)
+            {
+                MessageBox.Show("Результат перепроверки показал что файлы оригиальные.");
+            }
+            else
+            {
+                MessageBox.Show("Результат перепроверки показал что файлы не оригиальные.");
+            }
+            launcherGUI.updateShield();
+        }
+
         public static void openForm11()
         {
-            var nick = vrpRegKey.GetValue(vrpNickValue);
-            if (nick == null)
-            {
-                Registry.SetValue(vrpRegKey.Name, vrpNickValue, "BlackLightHack", RegistryValueKind.String);
-            }
-
+            checkFiles();
             launcherGUI = new LauncherGUI();
             Application.Run(launcherGUI);
         }
 
-        public static void openForm1() {
-            var nick = vrpRegKey.GetValue(vrpNickValue);
-            if (nick == null)
-            {
-                Registry.SetValue(vrpRegKey.Name, vrpNickValue, "BlackLightHack", RegistryValueKind.String);
-            }
 
+        public static void openForm1()
+        {
+            checkFiles();
             launcherGUI = new LauncherGUI();
+            launcherGUI.Show();
         }
 
         public static void ExceptionHandler(object sender, UnhandledExceptionEventArgs args) {
             Exception e = (Exception) args.ExceptionObject;
-            MessageBox.Show("При выполнении программы возникла неожиданная ошибка:\n\n" + e.StackTrace, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+            MessageBox.Show("При выполнении программы вылезла ошибка:\n\n" + e.StackTrace, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
             return;
-        }
-
-        public static void verifyFileIntegrity() {
-
-            var versionPath = MCLauncher.pathToMCFolder + @"\versions";
-            Clipboard.SetText(Cryptography.getFolderHashSHA1(versionPath, "*.*", SearchOption.TopDirectoryOnly)); // 644fd23cc51c22ab94b8cca9415c8d6ceda27d89
         }
     }
 }
