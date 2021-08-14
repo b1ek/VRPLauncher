@@ -89,7 +89,7 @@ namespace VRPLancher
             }
             catch (Exception) {
                 setStatus("Введено неверное значение RAM!");
-                MessageBox.Show("RAM Может быть только цифрой!");
+                MessageBox.Show("RAM может быть только цифрой!");
                 setLauncher(true);
                 return;
             }
@@ -99,7 +99,7 @@ namespace VRPLancher
             if (ram > maxram)
             {
                 setStatus("Выделено больше RAM чем есть в компьютере!");
-                MessageBox.Show("Вы выделили майнкрафту больше памяти чем есть в вашем компьютере!\nВы выделили: " + ram + " MB\nИ у вас есть: " + maxram);
+                MessageBox.Show("Вы выделили Майнкрафту больше памяти чем есть в вашем компьютере!\nВы выделили: " + ram + " MB\nИ у вас есть: " + maxram);
                 setLauncher(true);
                 return;
             }
@@ -119,7 +119,7 @@ namespace VRPLancher
                 
                 //ServerIp = "mc.vanillarp.fun",
             };
-            setStatus("Запуск майнкрафта...");
+            setStatus("Запуск Майнкрафта...");
             var process = launcher.CreateProcess("fabric-loader-0.11.6-1.16.4", launchOption);
 
             setLauncher(true);
@@ -127,7 +127,7 @@ namespace VRPLancher
             setStatus("Майнкрафт запущен! Ура!");
             #endregion
 
-            DialogResult dialogResult = MessageBox.Show(null, "Вы можете закрывать лаунчер.", "Процесс с майнкрафтом запущен", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show(null, "Вы можете закрывать лаунчер.", "Процесс с Майнкрафтом запущен", MessageBoxButtons.YesNo);
             
             if (dialogResult.Equals(DialogResult.Yes)) { // If user preferred to close launcher
                 setStatus("Лаунчер закрывается...");
