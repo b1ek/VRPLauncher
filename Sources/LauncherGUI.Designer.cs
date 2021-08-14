@@ -201,7 +201,7 @@ namespace VRPLancher.Sources
             this.closeLauncher.Name = "closeLauncher";
             this.closeLauncher.Size = new System.Drawing.Size(133, 19);
             this.closeLauncher.TabIndex = 5;
-            this.closeLauncher.Text = "Закрывать лаунчер";
+            this.closeLauncher.Text = "Закрыть лаунчер";
             this.closeLauncher.UseVisualStyleBackColor = false;
             // 
             // autoJoinServer
@@ -212,7 +212,7 @@ namespace VRPLancher.Sources
             this.autoJoinServer.Name = "autoJoinServer";
             this.autoJoinServer.Size = new System.Drawing.Size(144, 34);
             this.autoJoinServer.TabIndex = 6;
-            this.autoJoinServer.Text = "Автоматически зайти\r\nна сервер";
+            this.autoJoinServer.Text = "Автоматически зайти на сервер";
             this.autoJoinServer.UseVisualStyleBackColor = false;
             // 
             // launcherProgress
@@ -257,7 +257,7 @@ namespace VRPLancher.Sources
             this.useMojangAuth.Name = "useMojangAuth";
             this.useMojangAuth.Size = new System.Drawing.Size(137, 34);
             this.useMojangAuth.TabIndex = 11;
-            this.useMojangAuth.Text = "Использовать \r\nвторизацию Mojang\r\n";
+            this.useMojangAuth.Text = "Использовать авторизацию Mojang\r\n";
             this.useMojangAuth.UseVisualStyleBackColor = false;
             // 
             // percentProgress
