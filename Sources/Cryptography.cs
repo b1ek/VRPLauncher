@@ -10,6 +10,41 @@ namespace VRPLancher.Sources
 {
     static class Cryptography
     {
+        #region string <=> byte[]
+        public static byte[] string2bytes(string input) {
+            return Encoding.UTF8.GetBytes(input);}
+        public static string bytes2string(byte[] input)
+        {
+            return BitConverter.ToString(input);
+        }
+        #endregion
+        #region base64
+        public static string base64(string input)
+        {
+            return System.Convert.ToBase64String(string2bytes(input));
+        }
+        public static string base64(byte[] input)
+        {
+            return System.Convert.ToBase64String(input);
+        }
+        public static string decodeBase64(string input)
+        {
+            return bytes2string(System.Convert.FromBase64String(input));
+        }
+        public static string decodeBase64(byte[] input)
+        {
+            return bytes2string(System.Convert.FromBase64String(bytes2string(input)));
+        }
+        public static byte[] decodeBase64toBytes(string input)
+        {
+            return System.Convert.FromBase64String(input);
+        }
+        public static byte[] decodeBase64toBytes(byte[] input)
+        {
+            return System.Convert.FromBase64String(bytes2string(input));
+        }
+        #endregion
+        #region hash
         public static string getFolderHash(HashAlgorithm hashAlgorithm, string folerPath, string filesFilter, SearchOption searchOption)
         {
             List<string> files = Directory.GetFiles(folerPath, filesFilter, SearchOption.AllDirectories).OrderBy(p => p).ToList();
@@ -75,5 +110,19 @@ namespace VRPLancher.Sources
         {
             return BitConverter.ToString(hashAlgorithm.ComputeHash(encoding.GetBytes(input)));
         }
+        #endregion
+
+        #region AES
+        /*public static byte[] aesDecode(byte[] input, byte[] key)
+        {
+            Aes a = System.Security.Cryptography.Aes.Create();
+
+            byte[] output = input;
+            MemoryStream m = new MemoryStream(output);
+            CryptoStream cr = new CryptoStream(m, a.CreateDecryptor(key, key), CryptoStreamMode.Read);
+            StreamReader reader = new(cr);
+            return string2bytes(reader.ReadToEnd());
+        }*/
+        #endregion
     }
 }

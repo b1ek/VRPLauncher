@@ -44,11 +44,11 @@ namespace VRPLancher
         public static MCLauncher launcher = new MCLauncher();
 
         public static RegistryKey getVrpRegKey() {
-            RegistryKey a = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\blek\VRP");
+            RegistryKey a = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\blek\VRP", true);
             if (a == null) {
                 Registry.CurrentUser.CreateSubKey(@"SOFTWARE\blek\VRP");
             }
-            return Registry.CurrentUser.OpenSubKey(@"SOFTWARE\blek\VRP");
+            return Registry.CurrentUser.OpenSubKey(@"SOFTWARE\blek\VRP", true);
         }
 
         private static void WriteReadme() {
@@ -63,8 +63,23 @@ namespace VRPLancher
 
         [STAThread]
         //[SecurityPermission(SecurityAction.Demand, Flags=SecurityPermissionFlag.ControlAppDomain)]
-        static void Main()
+        static void Main(string[] args)
         {
+            if (args.Length > 0)
+            {
+                if (args[0].ToLower() == "--launchNow")
+                {
+                    Console.WriteLine("Запуск майнкрафта...");
+                    if (args.Length > 1) { } else return;
+                    if (args[1].ToLower() == "mojang")
+                    {
+                        string email = args[2];
+                        string psswd = args[3];
+                        string mcram = args[4];
+                        launcher.launchNow(new string[] { "true", email, psswd, "true", mcram });
+                    }
+                }
+            }
             //Clipboard.SetText(Cryptography.getPasswordHash("пароль)"));
             try
             {
@@ -101,6 +116,15 @@ namespace VRPLancher
         public static void checkFiles()
         {
             bool trusted = FileChecker.checkByDefault();
+            filesValid = trusted;
+            if (RegistryConfig.launcherUnlocked)
+            {
+                if (trusted)
+                {
+                    MessageBox.Show("Лаунчер разблокирован.\nПереход в доверенный режим невозможен.");
+                }
+                filesValid = false;
+            }
             if (!trusted)
             {
                 MessageBox.Show(
@@ -110,12 +134,12 @@ namespace VRPLancher
                 "\n" +
                 "Чтобы восстановить свой статус доверенности, поставьте оригинальные моды и версию игры.");
             }
-            filesValid = trusted;
         }
         public static void reCheckFiles()
         {
             bool trusted = FileChecker.checkByDefault();
             filesValid = trusted;
+            launcherGUI.updateShield();
             if (filesValid)
             {
                 MessageBox.Show("Результат перепроверки показал что файлы оригиальные.");
@@ -124,7 +148,6 @@ namespace VRPLancher
             {
                 MessageBox.Show("Результат перепроверки показал что файлы не оригиальные.");
             }
-            launcherGUI.updateShield();
         }
 
         public static void openForm11()
@@ -144,7 +167,9 @@ namespace VRPLancher
 
         public static void ExceptionHandler(object sender, UnhandledExceptionEventArgs args) {
             Exception e = (Exception) args.ExceptionObject;
-            MessageBox.Show("При выполнении программы вылезла ошибка:\n\n" + e.StackTrace, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
+
+            MessageBox.Show("При выполнении программы вылезла ошибка:\n\n" + e.StackTrace, "Ошибка", MessageBoxButtons.OK,
+            MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1, MessageBoxOptions.ServiceNotification);
             return;
         }
     }

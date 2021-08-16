@@ -11,6 +11,7 @@ namespace VRPLancher.Sources
 
         private const string modHash = "5878a0f76e069b958218ac330a01b526520e69dd";
         private const string verHash = "6680ff5ebef5c115e412573b3a0db6df39c748ed";
+        private const string hash3TR = "5c40561892484ac72693527bac7b0674a1d23a690cf731417de4b6fad11231be";
 
         public static bool checkByDefault()
         {
@@ -39,14 +40,17 @@ namespace VRPLancher.Sources
                 MessageBox.Show("Папка с модами отсутствует.");
             }
 
-            checkProgress.progress = 81;
-            bool hash1valid = hash1.Equals(modHash);
-            checkProgress.progress = 95;
-            bool hash2valid = hash2.Equals(verHash);
+            checkProgress.progress = 80;
+            // 5c40561892484ac72693527bac7b0674a1d23a690cf731417de4b6fad11231be
+            string hash3 = Cryptography.getStringHash(System.Security.Cryptography.SHA256.Create(), hash1 + hash2).Replace("-", "").ToLowerInvariant();
+            checkProgress.progress = 98;
+            bool hash3valid = hash3.Equals(hash3TR);
 
             checkProgress.progress = 100;
             checkProgress.Close();
-            return hash1valid && hash2valid;
+            AdvancedRegistryConfig.lastVersionHash  = hash1;
+            AdvancedRegistryConfig.lastModHash      = hash2;
+            return hash3valid;
         }
     }
 }
