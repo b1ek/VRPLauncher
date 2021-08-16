@@ -336,8 +336,8 @@ namespace VRPLancher.Sources
             this.versionLabel.AutoSize = true;
             this.versionLabel.BackColor = System.Drawing.Color.Transparent;
             this.versionLabel.Font = new System.Drawing.Font("Segoe UI Emoji", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.versionLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.versionLabel.Location = new System.Drawing.Point(484, 58);
+            this.versionLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.versionLabel.Location = new System.Drawing.Point(463, 58);
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Size = new System.Drawing.Size(31, 15);
             this.versionLabel.TabIndex = 18;

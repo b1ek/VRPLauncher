@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VRPLancher.Sources;
 
 namespace VRPLancher
 {
@@ -114,6 +115,32 @@ namespace VRPLancher
         }
         #endregion
 
+        #endregion
+
+        #region Unlock launcher
+        private const string launcherUnlockedKey = "unlockLauncher";
+        public static bool launcherUnlocked
+        {
+            get
+            {
+                object val = Central.vrpRegKey.GetValue(launcherUnlockedKey).ToString().ToLower();
+                if (val == null)
+                {
+                    launcherUnlocked = false;
+                    return false;
+                }
+                var a = val.ToString().ToLower();
+                if (a == "true")
+                {
+                    return true;
+                }
+                return false;
+            }
+            set
+            {
+                Registry.SetValue(Central.vrpRegKey.Name, launcherUnlockedKey, value);
+            }
+        }
         #endregion
     }
 }

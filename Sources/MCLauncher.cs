@@ -24,6 +24,7 @@ namespace VRPLancher
         public static readonly string pathToJava = Environment.CurrentDirectory + @"\bin\jre1.8.0_301\bin";
         public static readonly string profileName = "fabric-loader-0.11.6-1.16.4";
         public static readonly MinecraftPath minecraftPath = new MinecraftPath(pathToMCFolder);
+        private static readonly CMLauncher launcher = new CMLauncher(minecraftPath);
 
         /// <summary>
         /// <h2>Config reference</h2> <br/>
@@ -81,7 +82,7 @@ namespace VRPLancher
             }
             System.Net.ServicePointManager.DefaultConnectionLimit = 256;
             #endregion
-            #region Config parser
+            #region ram
             int ram;
             try
             {
@@ -107,13 +108,12 @@ namespace VRPLancher
             System.GC.Collect();
             #endregion
             #region Create launcher & launch
-            var launcher = new CMLauncher(minecraftPath);
 
             var launchOption = new MLaunchOption
             {
                 MaximumRamMb = ram,
                 Session = session,
-                ScreenWidth = 640,
+                ScreenWidth = 840,
                 ScreenHeight = 640,
                 Path = minecraftPath,
                 
@@ -138,6 +138,12 @@ namespace VRPLancher
             setStatus("Майнкрафт запущен! Ура!");
             #endregion
 
+            if (closeLauncher)
+            {
+                setStatus("Лаунчер закрывается...");
+                Application.Exit();
+            }
+
             DialogResult dialogResult = MessageBox.Show(null, "Вы можете закрывать лаунчер.", "Процесс с Майнкрафтом запущен", MessageBoxButtons.YesNo);
             
             if (dialogResult.Equals(DialogResult.Yes)) { // If user preferred to close launcher
@@ -147,11 +153,29 @@ namespace VRPLancher
 
             launcher.ProgressChanged += (s, e) => { Central.launcherGUI.progress = e.ProgressPercentage; };
 
-            if (closeLauncher)
-            {
-                setStatus("Лаунчер закрывается...");
-                Application.Exit();
+        }
+
+        /// <summary>
+        /// Config reference:
+        /// {nick or email}
+        /// {password if needed}
+        /// {ram}
+        /// </summary>
+        /// <param name="config"></param>
+        public void launchNoGui(string[] config) {
+            #region config parser
+            string nick="", password="", email="";
+            int ram=0;
+            bool useMojangAuth = false;
+            if (config[0] == "") { // no mojang auth
+                nick = config[0];
+            } else {
+                email = config[0];
+                password = config[1];
+                useMojangAuth = true;
             }
+            ram = int.Parse(config[2]);
+            #endregion
         }
     }
 }

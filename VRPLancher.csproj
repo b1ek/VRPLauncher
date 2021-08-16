@@ -40,4 +40,13 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 
+	<PropertyGroup>
+		<AssemblyVersion>1.0.2</AssemblyVersion>
+		<Version>1.0.2</Version>
+
+		<RepositoryUrl>https://github.com/b1ek/VRPLauncher</RepositoryUrl>
+		<Company>VanillaRP</Company>
+		<Authors>blek!</Authors>
+	</PropertyGroup>
+	
 </Project>
